@@ -2,7 +2,6 @@ import React from 'react';
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { CUSTOMER_NAVIGATION } from '../constants/navigation';
-import { ROLES } from '../constants/roles';
 import { Avatar } from '../components/common/Avatar';
 import { Footer } from '../components/layout/Footer';
 import {
@@ -14,7 +13,6 @@ import {
   CreditCard,
   User,
   LogOut,
-  ShieldAlert,
 } from 'lucide-react';
 
 const iconMap = {
@@ -28,7 +26,7 @@ const iconMap = {
 };
 
 export const CustomerLayout = () => {
-  const { user, logout, switchDemoRole } = useAuth();
+  const { user, logout } = useAuth();
   const navigate = useNavigate();
 
   return (
@@ -52,20 +50,13 @@ export const CustomerLayout = () => {
               </div>
             </div>
 
-            {/* Quick Demo Switcher Pill */}
-            <div className="hidden md:flex items-center gap-2 bg-slate-50 border border-slate-200 px-2.5 py-1 rounded-lg text-xs">
-              <span className="text-slate-500 font-medium">Viewing as:</span>
-              <span className="font-bold text-[#5263D9]">{user?.name} ({user?.company || 'Acme Corp'})</span>
-              <button
-                type="button"
-                onClick={() => {
-                  switchDemoRole(ROLES.ADMIN);
-                  navigate('/dashboard');
-                }}
-                className="ml-2 text-[11px] bg-white hover:bg-slate-100 border border-slate-200 text-slate-700 font-semibold px-2 py-0.5 rounded cursor-pointer transition-colors"
-              >
-                Switch to Admin
-              </button>
+            {/* Customer Status Badge */}
+            <div className="hidden md:flex items-center gap-2 bg-slate-50 border border-slate-200 px-3 py-1.5 rounded-lg text-xs">
+              <span className="text-slate-500 font-medium">Logged in as:</span>
+              <span className="font-bold text-[#5263D9]">{user?.name}</span>
+              {user?.company && (
+                <span className="text-slate-500">({user.company})</span>
+              )}
             </div>
 
             {/* Profile & Logout */}
@@ -84,45 +75,49 @@ export const CustomerLayout = () => {
                   navigate('/login');
                 }}
                 className="p-2 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition-colors cursor-pointer"
-                title="Sign out"
+                title="Sign Out"
               >
                 <LogOut className="w-4 h-4" />
               </button>
             </div>
           </div>
+        </div>
 
-          {/* Sub Navigation Bar for Customer Portal */}
-          <nav className="flex items-center gap-1 overflow-x-auto border-t border-slate-100 py-1.5 scrollbar-none">
-            {CUSTOMER_NAVIGATION.map((item) => {
-              const Icon = iconMap[item.icon] || LayoutDashboard;
-              return (
-                <NavLink
-                  key={item.path}
-                  to={item.path}
-                  end={item.path === '/portal'}
-                  className={({ isActive }) => `
-                    flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-medium whitespace-nowrap transition-colors
-                    ${isActive
-                      ? 'bg-[#EEF0FD] text-[#5263D9] font-bold'
-                      : 'text-[#64748B] hover:text-[#202744] hover:bg-slate-100'
-                    }
-                  `}
-                >
-                  <Icon className="w-4 h-4 shrink-0" />
-                  <span>{item.name}</span>
-                </NavLink>
-              );
-            })}
-          </nav>
+        {/* Customer Secondary Navigation Tabs */}
+        <div className="border-t border-[#F1F3F7] bg-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <nav className="flex space-x-1 sm:space-x-4 overflow-x-auto py-2 scrollbar-none">
+              {CUSTOMER_NAVIGATION.map((item) => {
+                const Icon = iconMap[item.icon] || LayoutDashboard;
+                return (
+                  <NavLink
+                    key={item.path}
+                    to={item.path}
+                    end={item.path === '/portal'}
+                    className={({ isActive }) => `
+                      flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-semibold whitespace-nowrap transition-colors
+                      ${isActive
+                        ? 'bg-[#EEF0FD] text-[#5263D9]'
+                        : 'text-[#64748B] hover:text-[#202744] hover:bg-slate-50'
+                      }
+                    `}
+                  >
+                    <Icon className="w-4 h-4" />
+                    <span>{item.title}</span>
+                  </NavLink>
+                );
+              })}
+            </nav>
+          </div>
         </div>
       </header>
 
-      {/* Main Content */}
-      <main className="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8">
+      {/* Main Portal Viewport */}
+      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <Outlet />
-        <Footer />
       </main>
+
+      <Footer />
     </div>
   );
 };
-

@@ -142,7 +142,7 @@ export const DataTable = ({
                     key={col.key || index}
                     onClick={() => isSortable && handleSort(col.key)}
                     className={`
-                      px-4 py-3 font-semibold text-[#8FA3BE] dark:text-slate-400 tracking-wider uppercase text-[10px] select-none border-r border-[#EAEFF5] dark:border-slate-800 last:border-r-0 whitespace-nowrap
+                      px-4 py-3 font-semibold text-[#8FA3BE] dark:text-slate-400 tracking-wider uppercase text-[10px] select-none whitespace-nowrap
                       ${isSortable ? 'cursor-pointer hover:text-[#202744] dark:hover:text-white' : ''}
                       ${col.className || ''}
                     `}
@@ -189,7 +189,7 @@ export const DataTable = ({
                   {columns.map((col, colIndex) => (
                     <td
                       key={col.key || colIndex}
-                      className={`px-4 py-3 text-[#202744] dark:text-slate-200 align-middle text-xs border-r border-[#F1F4F9] dark:border-slate-800/80 last:border-r-0 whitespace-nowrap ${col.cellClassName || ''}`}
+                      className={`px-4 py-3 text-[#202744] dark:text-slate-200 align-middle text-xs whitespace-nowrap ${col.cellClassName || ''}`}
                     >
                       {col.render ? col.render(row[col.key], row, rowIndex) : row[col.key] ?? '—'}
                     </td>
@@ -213,4 +213,3 @@ export const DataTable = ({
     </div>
   );
 };
-

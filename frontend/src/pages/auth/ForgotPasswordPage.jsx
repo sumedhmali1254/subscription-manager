@@ -34,51 +34,50 @@ export const ForgotPasswordPage = () => {
   };
 
   return (
-    <div className="bg-white rounded-2xl border border-[#E7EAF0] p-7 sm:p-9 shadow-card">
-      <div className="mb-6">
+    <div className="bg-white rounded-2xl border border-[#E7EAF0] p-5 sm:p-6 shadow-card">
+      <div className="mb-4">
         <Link
           to="/login"
-          className="inline-flex items-center gap-1.5 text-xs text-[#5263D9] hover:underline mb-4 font-semibold"
+          className="inline-flex items-center gap-1.5 text-xs text-[#5263D9] hover:underline mb-2.5 font-semibold"
         >
           <ArrowLeft className="w-3.5 h-3.5" />
           Back to login
         </Link>
         <h2 className="text-xl sm:text-2xl font-bold text-[#202744] font-heading">
-          Reset Your Password
+          Reset Password
         </h2>
-        <p className="text-xs sm:text-sm text-[#64748B] mt-1">
-          Enter your registered email address and we'll send you recovery instructions.
+        <p className="text-xs text-[#64748B] mt-0.5">
+          Enter your registered email address to receive recovery instructions.
         </p>
       </div>
 
       {submitted ? (
-        <div className="p-5 bg-emerald-50 rounded-xl border border-emerald-200 text-center space-y-3">
-          <div className="w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center mx-auto text-emerald-600">
-            <CheckCircle2 className="w-6 h-6" />
+        <div className="p-4 bg-emerald-50 rounded-xl border border-emerald-200 text-center space-y-2">
+          <div className="w-10 h-10 bg-emerald-100 rounded-full flex items-center justify-center mx-auto text-emerald-600">
+            <CheckCircle2 className="w-5 h-5" />
           </div>
-          <h4 className="text-sm font-bold text-emerald-900 font-heading">Check your inbox</h4>
-          <p className="text-xs text-emerald-700 leading-relaxed">
-            We've sent a password reset link to <strong className="font-semibold">{email}</strong>.
-            Please check your spam folder if it doesn't arrive within 2 minutes.
+          <h4 className="text-xs font-bold text-emerald-900 font-heading">Check your inbox</h4>
+          <p className="text-[11px] text-emerald-700 leading-relaxed">
+            We have dispatched password reset instructions to <strong>{email}</strong>.
           </p>
           <div className="pt-2">
             <Link
-              to="/reset-password?token=mock-token-sample"
-              className="text-xs font-semibold text-[#5263D9] hover:underline"
+              to="/login"
+              className="inline-block text-xs font-semibold text-[#5263D9] hover:underline"
             >
-              [Demo Test] Open Reset Password Screen →
+              Return to Sign In
             </Link>
           </div>
         </div>
       ) : (
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-3">
           {error && (
-            <div className="p-3 rounded-lg bg-rose-50 border border-rose-200 text-xs text-rose-700 font-medium">
+            <div className="p-2 rounded-lg bg-rose-50 border border-rose-200 text-xs text-rose-700 font-medium">
               {error}
             </div>
           )}
 
-          <FormField label="Registered Email" required>
+          <FormField label="Email Address" required>
             <Input
               type="email"
               value={email}
@@ -92,14 +91,13 @@ export const ForgotPasswordPage = () => {
           <Button
             type="submit"
             variant="primary"
-            className="w-full mt-2"
+            className="w-full mt-2 py-2 text-xs font-semibold"
             loading={loading}
           >
-            Send Reset Instructions
+            Send Reset Link
           </Button>
         </form>
       )}
     </div>
   );
 };
-

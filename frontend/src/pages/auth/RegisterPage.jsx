@@ -6,7 +6,7 @@ import { FormField } from '../../components/forms/FormField';
 import { Checkbox } from '../../components/forms/Checkbox';
 import { Button } from '../../components/common/Button';
 import { validateEmail, checkPasswordStrength } from '../../utils/validators';
-import { Eye, EyeOff, Lock, Mail, User, Building, ArrowRight, Check, X } from 'lucide-react';
+import { Eye, EyeOff, Lock, Mail, User, Building, ArrowRight } from 'lucide-react';
 
 export const RegisterPage = () => {
   const { register, loading } = useAuth();
@@ -35,8 +35,8 @@ export const RegisterPage = () => {
       setError('Please provide a valid email address.');
       return;
     }
-    if (strength.score < 4) {
-      setError('Please choose a stronger password that satisfies all security requirements.');
+    if (strength.score < 3) {
+      setError('Password must have 8+ characters, uppercase, lowercase, and special characters.');
       return;
     }
     if (password !== confirmPassword) {
@@ -57,137 +57,122 @@ export const RegisterPage = () => {
   };
 
   return (
-    <div className="bg-white rounded-2xl border border-[#E7EAF0] p-7 sm:p-9 shadow-card">
-      <div className="mb-6">
+    <div className="bg-white rounded-2xl border border-[#E7EAF0] p-5 sm:p-6 shadow-card">
+      <div className="mb-3.5">
         <h2 className="text-xl sm:text-2xl font-bold text-[#202744] font-heading">
-          Create Customer Account
+          Create Account
         </h2>
-        <p className="text-xs sm:text-sm text-[#64748B] mt-1">
-          Get started with self-service subscription & billing management.
+        <p className="text-xs text-[#64748B] mt-0.5">
+          Sign up for self-service subscription and billing management.
         </p>
       </div>
 
       {error && (
-        <div className="mb-4 p-3 rounded-lg bg-rose-50 border border-rose-200 text-xs text-rose-700 font-medium">
+        <div className="mb-3 p-2 rounded-lg bg-rose-50 border border-rose-200 text-xs text-rose-700 font-medium">
           {error}
         </div>
       )}
 
-      <form onSubmit={handleSubmit} className="space-y-3.5">
-        <FormField label="Full Name" required>
-          <Input
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            placeholder="e.g. John Doe"
-            icon={User}
-          />
-        </FormField>
+      <form onSubmit={handleSubmit} className="space-y-2.5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+          <FormField label="Full Name" required>
+            <Input
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder="e.g. Priya Sharma"
+              icon={User}
+            />
+          </FormField>
+
+          <FormField label="Company Name">
+            <Input
+              type="text"
+              value={company}
+              onChange={(e) => setCompany(e.target.value)}
+              placeholder="e.g. Acme Tech"
+              icon={Building}
+            />
+          </FormField>
+        </div>
 
         <FormField label="Email Address" required>
           <Input
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            placeholder="e.g. john@acme.com"
+            placeholder="e.g. priya@acme.com"
             icon={Mail}
           />
         </FormField>
 
-        <FormField label="Company Name">
-          <Input
-            type="text"
-            value={company}
-            onChange={(e) => setCompany(e.target.value)}
-            placeholder="e.g. Acme Technologies"
-            icon={Building}
-          />
-        </FormField>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+          <FormField label="Password" required>
+            <Input
+              type={showPassword ? 'text' : 'password'}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="8+ characters"
+              icon={Lock}
+              rightElement={
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="text-slate-400 hover:text-slate-600 focus:outline-none p-1 cursor-pointer"
+                >
+                  {showPassword ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
+                </button>
+              }
+            />
+          </FormField>
 
-        <FormField label="Password" required>
-          <Input
-            type={showPassword ? 'text' : 'password'}
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="At least 8 characters"
-            icon={Lock}
-            rightElement={
-              <button
-                type="button"
-                onClick={() => setShowPassword(!showPassword)}
-                className="text-slate-400 hover:text-slate-600 focus:outline-none"
-              >
-                {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-              </button>
-            }
-          />
-        </FormField>
+          <FormField label="Confirm Password" required>
+            <Input
+              type={showPassword ? 'text' : 'password'}
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              placeholder="Re-enter password"
+              icon={Lock}
+            />
+          </FormField>
+        </div>
 
-        {/* Real-time Password Strength Feedback */}
+        {/* Minimal Password Strength Meter */}
         {password && (
-          <div className="p-3 bg-slate-50 rounded-xl border border-slate-100 space-y-2">
-            <div className="flex items-center justify-between text-xs">
-              <span className="text-[#64748B]">Strength: <strong className="text-[#202744]">{strength.label}</strong></span>
-              <span className="text-[11px] text-[#64748B]">{strength.percentage}%</span>
-            </div>
-            <div className="w-full h-1.5 bg-slate-200 rounded-full overflow-hidden">
+          <div className="flex items-center gap-2 pt-0.5">
+            <div className="flex-1 h-1 bg-slate-200 rounded-full overflow-hidden">
               <div
                 className={`h-full ${strength.color} transition-all duration-300`}
                 style={{ width: `${strength.percentage}%` }}
               />
             </div>
-            <div className="grid grid-cols-2 gap-1 text-[11px] pt-1 text-[#64748B]">
-              <div className={`flex items-center gap-1 ${strength.checks.length ? 'text-emerald-600' : ''}`}>
-                {strength.checks.length ? <Check className="w-3 h-3" /> : <X className="w-3 h-3 text-slate-300" />}
-                8+ characters
-              </div>
-              <div className={`flex items-center gap-1 ${strength.checks.uppercase ? 'text-emerald-600' : ''}`}>
-                {strength.checks.uppercase ? <Check className="w-3 h-3" /> : <X className="w-3 h-3 text-slate-300" />}
-                Uppercase letter
-              </div>
-              <div className={`flex items-center gap-1 ${strength.checks.lowercase ? 'text-emerald-600' : ''}`}>
-                {strength.checks.lowercase ? <Check className="w-3 h-3" /> : <X className="w-3 h-3 text-slate-300" />}
-                Lowercase letter
-              </div>
-              <div className={`flex items-center gap-1 ${strength.checks.special ? 'text-emerald-600' : ''}`}>
-                {strength.checks.special ? <Check className="w-3 h-3" /> : <X className="w-3 h-3 text-slate-300" />}
-                Special symbol
-              </div>
-            </div>
+            <span className="text-[10px] text-[#64748B] shrink-0 font-medium">
+              {strength.label}
+            </span>
           </div>
         )}
 
-        <FormField label="Confirm Password" required>
-          <Input
-            type={showPassword ? 'text' : 'password'}
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            placeholder="Re-enter password"
-            icon={Lock}
-          />
-        </FormField>
-
-        <div className="pt-1">
+        <div className="pt-0.5">
           <Checkbox
             checked={agreeTerms}
             onChange={(e) => setAgreeTerms(e.target.checked)}
-            label="I accept the Brightloop Terms of Service and Privacy Policy"
+            label="I accept the Terms of Service & Privacy Policy"
           />
         </div>
 
         <Button
           type="submit"
           variant="primary"
-          className="w-full mt-2"
+          className="w-full mt-1 py-2 text-xs font-semibold"
           loading={loading}
           icon={ArrowRight}
           iconPosition="right"
         >
-          Create Account
+          Create Customer Account
         </Button>
       </form>
 
-      <div className="mt-6 text-center text-xs text-[#64748B] pt-4 border-t border-[#E7EAF0]">
+      <div className="mt-3.5 text-center text-xs text-[#64748B] pt-2.5 border-t border-[#E7EAF0]">
         Already have an account?{' '}
         <Link to="/login" className="text-[#5263D9] font-semibold hover:underline">
           Sign In
@@ -196,4 +181,3 @@ export const RegisterPage = () => {
     </div>
   );
 };
-

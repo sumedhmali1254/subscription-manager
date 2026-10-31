@@ -48,7 +48,7 @@ export const AppLayout = () => {
       <div
         className={`
           flex flex-col h-screen min-w-0 flex-1 overflow-hidden transition-all duration-300 ease-in-out
-          ${collapsed ? 'lg:ml-[58px]' : 'lg:ml-[200px]'}
+          ${collapsed ? 'lg:ml-[58px]' : 'lg:ml-[210px]'}
         `}
       >
         {/* Fixed Header */}
