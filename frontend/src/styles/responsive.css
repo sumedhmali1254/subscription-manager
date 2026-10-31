@@ -1,0 +1,229 @@
+/* =============================================================
+   RECURIX — Responsive Stylesheet
+   Covers: mobile (<640px), tablet (640-1024px), desktop (1024px+)
+   and print media queries.
+   ============================================================= */
+
+/* ── Mobile: < 640px ───────────────────────────────────────── */
+@media (max-width: 639px) {
+  /* Sidebar hidden by default on mobile — shown via drawer */
+  aside.fixed {
+    box-shadow: 2px 0 16px rgba(0, 0, 0, 0.18);
+  }
+
+  /* Header compact */
+  header {
+    padding-left: 0.75rem !important;
+    padding-right: 0.75rem !important;
+  }
+
+  /* Page padding */
+  main {
+    padding: 1rem !important;
+  }
+
+  /* Stat grid: 2 columns on mobile */
+  .stat-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  /* Tables: horizontal scroll */
+  .table-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  table {
+    min-width: 600px;
+  }
+
+  /* Modal full-width on mobile */
+  .modal-panel {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    border-radius: 1rem 1rem 0 0 !important;
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+  }
+
+  /* Drawer full-width */
+  .drawer-panel {
+    width: 100% !important;
+  }
+
+  /* Stacked form grid */
+  .form-grid-2 {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* PageHeader: stack title and actions */
+  .page-header-inner {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 0.75rem !important;
+  }
+
+  /* Chart cards: reduce height */
+  .chart-card {
+    min-height: 260px !important;
+  }
+}
+
+/* ── Tablet: 640px – 1023px ────────────────────────────────── */
+@media (min-width: 640px) and (max-width: 1023px) {
+  /* 2-col stat grid on tablet */
+  .stat-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  /* Side-by-side form fields where possible */
+  .form-grid-2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  main {
+    padding: 1.25rem 1.5rem !important;
+  }
+}
+
+/* ── Desktop: 1024px+ ──────────────────────────────────────── */
+@media (min-width: 1024px) {
+  /* Full sidebar layout handled by Tailwind lg: classes */
+  .stat-grid {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  }
+}
+
+/* ── Extra Large: 1280px+ ──────────────────────────────────── */
+@media (min-width: 1280px) {
+  .stat-grid {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+/* ── Data Table Responsive ──────────────────────────────────── */
+.data-table-container {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: 0.75rem;
+}
+
+.data-table-container table {
+  min-width: 640px;
+  width: 100%;
+}
+
+/* ── Card Grid Alignment ────────────────────────────────────── */
+.card-grid {
+  display: grid;
+  gap: 1rem;
+  align-items: stretch;
+}
+
+.card-grid > * {
+  height: 100%;
+}
+
+/* ── Plan / Product Card Grid ───────────────────────────────── */
+.plan-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 640px) {
+  .plan-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .plan-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* ── Sidebar transition smooth ──────────────────────────────── */
+aside {
+  will-change: transform, width;
+}
+
+/* ── Scrollbar Styling ──────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #D1D9EC;
+  border-radius: 99px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #A5B0D0;
+}
+
+/* Sidebar scrollbar */
+aside ::-webkit-scrollbar-thumb {
+  background: #38448A;
+}
+
+aside ::-webkit-scrollbar-thumb:hover {
+  background: #5568BE;
+}
+
+/* ── Print Styles ───────────────────────────────────────────── */
+@media print {
+  /* Hide navigation elements */
+  aside,
+  header,
+  footer,
+  .no-print,
+  [class*="NotificationPanel"],
+  [class*="ProfileDropdown"],
+  button:not(.print-action) {
+    display: none !important;
+  }
+
+  /* Full width content */
+  main,
+  .print-content {
+    padding: 0 !important;
+    margin: 0 !important;
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+
+  /* Invoice / Quotation print layout */
+  .invoice-print,
+  .quotation-print {
+    page-break-inside: avoid;
+    box-shadow: none !important;
+    border: 1px solid #E7EAF0 !important;
+  }
+
+  table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  table th,
+  table td {
+    border: 1px solid #E7EAF0;
+    padding: 6px 10px;
+    font-size: 11px;
+  }
+
+  @page {
+    margin: 1.5cm;
+    size: A4;
+  }
+}
