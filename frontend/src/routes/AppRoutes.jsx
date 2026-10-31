@@ -21,11 +21,13 @@ import { CustomerListPage } from '../pages/customers/CustomerListPage';
 import { CustomerDetailPage } from '../pages/customers/CustomerDetailPage';
 import { ProductListPage } from '../pages/products/ProductListPage';
 import { ProductDetailPage } from '../pages/products/ProductDetailPage';
+import { ProductVariantsPage } from '../pages/products/ProductVariantsPage';
 import { PlanListPage } from '../pages/plans/PlanListPage';
 import { PlanDetailPage } from '../pages/plans/PlanDetailPage';
 import { QuotationListPage } from '../pages/quotations/QuotationListPage';
 import { QuotationCreatePage } from '../pages/quotations/QuotationCreatePage';
 import { QuotationDetailPage } from '../pages/quotations/QuotationDetailPage';
+import { QuotationTemplatesPage } from '../pages/quotations/QuotationTemplatesPage';
 import { SubscriptionListPage } from '../pages/subscriptions/SubscriptionListPage';
 import { SubscriptionCreatePage } from '../pages/subscriptions/SubscriptionCreatePage';
 import { SubscriptionDetailPage } from '../pages/subscriptions/SubscriptionDetailPage';
@@ -77,11 +79,13 @@ export const AppRoutes = () => {
         <Route path="/customers/:id" element={<CustomerDetailPage />} />
         <Route path="/products" element={<ProductListPage />} />
         <Route path="/products/:id" element={<ProductDetailPage />} />
+        <Route path="/product-variants" element={<ProductVariantsPage />} />
         <Route path="/plans" element={<PlanListPage />} />
         <Route path="/plans/:id" element={<PlanDetailPage />} />
         <Route path="/quotations" element={<QuotationListPage />} />
         <Route path="/quotations/new" element={<QuotationCreatePage />} />
         <Route path="/quotations/:id" element={<QuotationDetailPage />} />
+        <Route path="/quotation-templates" element={<QuotationTemplatesPage />} />
         <Route path="/subscriptions" element={<SubscriptionListPage />} />
         <Route path="/subscriptions/new" element={<SubscriptionCreatePage />} />
         <Route path="/subscriptions/:id" element={<SubscriptionDetailPage />} />

@@ -5,6 +5,7 @@ import { Input } from '../../components/forms/Input';
 import { Select } from '../../components/forms/Select';
 import { Button } from '../../components/common/Button';
 import { Percent, DollarSign, Calendar, Hash } from 'lucide-react';
+import { toast } from 'sonner';
 
 export const DiscountFormModal = ({
   isOpen,
@@ -59,7 +60,7 @@ export const DiscountFormModal = ({
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!formData.discountName.trim()) {
-      alert('Discount coupon code is required.');
+      toast.error('Discount coupon code is required.');
       return;
     }
     onSubmit({

@@ -6,6 +6,7 @@ import { Button } from '../../components/common/Button';
 import { Badge } from '../../components/common/Badge';
 import { formatCurrency } from '../../utils/formatters';
 import { CheckCircle2, Users, Layers, Zap } from 'lucide-react';
+import { toast } from 'sonner';
 
 export const CustomerPlansPage = () => {
   const [plans, setPlans] = useState([]);
@@ -19,7 +20,7 @@ export const CustomerPlansPage = () => {
   }, []);
 
   const handleRequestUpgrade = (plan) => {
-    alert(`Thank you! Your request to switch to "${plan.name}" has been logged. Our account team will contact your registered email.`);
+    toast.success(`Thank you! Your request to switch to "${plan.name}" has been logged. Our account team will contact your registered email.`);
   };
 
   return (

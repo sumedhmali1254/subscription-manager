@@ -1,6 +1,6 @@
 import { INITIAL_MOCK_DATA } from './mockData';
 
-const STORAGE_KEY = 'recurix_db_v1';
+const STORAGE_KEY = 'recurix_db_v2';
 
 // Initialize or load database from localStorage
 const getDB = () => {

@@ -95,9 +95,9 @@ export const DataTable = ({
   }
 
   return (
-    <div className={`bg-white rounded-xl border border-[#E7EAF0] shadow-card overflow-hidden ${className}`}>
+    <div className={`bg-white dark:bg-[#1E293B] rounded-xl border border-[#E7EAF0] dark:border-slate-800 shadow-card overflow-hidden ${className}`}>
       {/* Controls Bar */}
-      <div className="p-4 border-b border-[#E7EAF0] flex flex-col sm:flex-row items-center justify-between gap-3 bg-white">
+      <div className="p-4 border-b border-[#E7EAF0] dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-3 bg-white dark:bg-[#1E293B]">
         <div className="relative w-full sm:w-80">
           <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
           <input
@@ -108,7 +108,7 @@ export const DataTable = ({
               setCurrentPage(1);
             }}
             placeholder={searchPlaceholder}
-            className="w-full pl-9 pr-3 py-1.5 text-xs rounded-lg border border-[#E7EAF0] focus:border-[#5263D9] focus:ring-2 focus:ring-[#5263D9]/15 outline-none transition-all placeholder:text-slate-400 text-[#202744]"
+            className="w-full pl-9 pr-3 py-1.5 text-xs rounded-lg border border-[#E7EAF0] dark:border-slate-700 bg-white dark:bg-slate-900 focus:border-[#5263D9] focus:ring-2 focus:ring-[#5263D9]/15 outline-none transition-all placeholder:text-slate-400 dark:placeholder:text-slate-500 text-[#202744] dark:text-white"
           />
         </div>
 
@@ -118,7 +118,7 @@ export const DataTable = ({
             <button
               type="button"
               onClick={handleExport}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-[#64748B] hover:text-[#202744] bg-white hover:bg-slate-50 border border-[#E7EAF0] rounded-lg transition-colors cursor-pointer"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-[#64748B] dark:text-slate-300 hover:text-[#202744] dark:hover:text-white bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 border border-[#E7EAF0] dark:border-slate-700 rounded-lg transition-colors cursor-pointer"
               title="Export current table data to CSV"
             >
               <Download className="w-3.5 h-3.5" />
@@ -132,7 +132,7 @@ export const DataTable = ({
       <div className="overflow-x-auto">
         <table className="w-full text-left border-collapse text-xs">
           <thead>
-            <tr className="bg-[#F8FAFC] border-b border-[#E7EAF0]">
+            <tr className="bg-[#F5F7FB] dark:bg-[#0F172A] border-b border-[#E7EAF0] dark:border-slate-800">
               {columns.map((col, index) => {
                 const isSortable = col.sortable !== false && col.key;
                 const isSorted = sortKey === col.key;
@@ -142,15 +142,15 @@ export const DataTable = ({
                     key={col.key || index}
                     onClick={() => isSortable && handleSort(col.key)}
                     className={`
-                      px-4 py-3.5 font-semibold text-[#64748B] tracking-wider uppercase text-[11px] select-none
-                      ${isSortable ? 'cursor-pointer hover:text-[#202744]' : ''}
+                      px-4 py-3 font-semibold text-[#8FA3BE] dark:text-slate-400 tracking-wider uppercase text-[10px] select-none border-r border-[#EAEFF5] dark:border-slate-800 last:border-r-0 whitespace-nowrap
+                      ${isSortable ? 'cursor-pointer hover:text-[#202744] dark:hover:text-white' : ''}
                       ${col.className || ''}
                     `}
                   >
-                    <div className="flex items-center gap-1.5">
-                      <span>{col.header}</span>
+                    <div className="flex items-center gap-1.5 whitespace-nowrap">
+                      <span className="whitespace-nowrap">{col.header}</span>
                       {isSortable && (
-                        <span className="text-slate-400">
+                        <span className="text-slate-400 shrink-0">
                           {isSorted ? (
                             sortOrder === 'asc' ? <ArrowUp className="w-3 h-3 text-[#5263D9]" /> : <ArrowDown className="w-3 h-3 text-[#5263D9]" />
                           ) : (
@@ -164,10 +164,10 @@ export const DataTable = ({
               })}
             </tr>
           </thead>
-          <tbody className="divide-y divide-slate-100 font-sans">
+          <tbody className="font-sans">
             {paginatedData.length === 0 ? (
               <tr>
-                <td colSpan={columns.length} className="p-8">
+                <td colSpan={columns.length} className="p-8 text-center">
                   <EmptyState
                     title={emptyTitle}
                     description={emptyDescription}
@@ -182,14 +182,14 @@ export const DataTable = ({
                   key={row[rowKey] || rowIndex}
                   onClick={() => onRowClick && onRowClick(row)}
                   className={`
-                    transition-colors duration-150
-                    ${onRowClick ? 'hover:bg-slate-50/80 cursor-pointer' : 'hover:bg-slate-50/50'}
+                    border-b border-[#F1F4F9] dark:border-slate-800/80 transition-colors duration-150
+                    ${onRowClick ? 'hover:bg-[#F8FAFF] dark:hover:bg-slate-800/60 cursor-pointer' : 'hover:bg-slate-50/40 dark:hover:bg-slate-800/30'}
                   `}
                 >
                   {columns.map((col, colIndex) => (
                     <td
                       key={col.key || colIndex}
-                      className={`px-4 py-3.5 text-[#202744] align-middle ${col.cellClassName || ''}`}
+                      className={`px-4 py-3 text-[#202744] dark:text-slate-200 align-middle text-xs border-r border-[#F1F4F9] dark:border-slate-800/80 last:border-r-0 whitespace-nowrap ${col.cellClassName || ''}`}
                     >
                       {col.render ? col.render(row[col.key], row, rowIndex) : row[col.key] ?? '—'}
                     </td>

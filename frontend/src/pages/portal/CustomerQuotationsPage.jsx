@@ -8,6 +8,7 @@ import { Button } from '../../components/common/Button';
 import { StatusBadge } from '../../components/common/StatusBadge';
 import { formatCurrency, formatDate } from '../../utils/formatters';
 import { Eye, CheckCircle2 } from 'lucide-react';
+import { toast } from 'sonner';
 
 export const CustomerQuotationsPage = () => {
   const { user } = useAuth();
@@ -35,9 +36,9 @@ export const CustomerQuotationsPage = () => {
     try {
       await quotationService.confirmQuotation(id);
       fetchQuotes();
-      alert('Quotation confirmed! Brightloop operations team has been notified.');
+      toast.success('Quotation confirmed! Brightloop operations team has been notified.');
     } catch (e) {
-      alert('Action failed');
+      toast.error('Action failed');
     }
   };
 

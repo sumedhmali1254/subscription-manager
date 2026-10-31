@@ -6,24 +6,16 @@ export const AuthLayout = () => {
   return (
     <div className="min-h-screen flex bg-white text-[#202744]">
       {/* Left Column: Brand Showcase (Hidden on mobile) */}
-      <div className="hidden lg:flex lg:w-1/2 relative bg-[#252D55] text-white flex-col justify-between p-12 overflow-hidden">
+      <div className="hidden lg:flex lg:w-1/2 relative bg-[#2D3766] text-white flex-col justify-between p-12 overflow-hidden">
         {/* Subtle decorative geometric circles */}
-        <div className="absolute -top-24 -right-24 w-96 h-96 rounded-full bg-[#5263D9]/20 blur-3xl pointer-events-none" />
+        <div className="absolute -top-24 -right-24 w-96 h-96 rounded-full bg-[#6172E8]/20 blur-3xl pointer-events-none" />
         <div className="absolute -bottom-24 -left-24 w-96 h-96 rounded-full bg-[#14A38B]/20 blur-3xl pointer-events-none" />
 
         {/* Top Logo */}
         <div className="relative z-10 flex items-center gap-3">
-          <div className="w-11 h-11 rounded-2xl bg-[#5263D9] flex items-center justify-center text-white font-heading font-extrabold text-2xl shadow-lg border border-indigo-400/30">
-            R
-          </div>
-          <div>
-            <span className="font-bold text-xl tracking-wider text-white font-heading block">
-              RECURIX
-            </span>
-            <span className="text-xs text-[#A5B4FC] font-medium tracking-wide">
-              Brightloop Software
-            </span>
-          </div>
+          <span className="font-extrabold text-2xl tracking-[0.18em] text-white font-heading uppercase select-none">
+            RECURIX
+          </span>
         </div>
 
         {/* Center Benefits & Value Prop */}
@@ -87,7 +79,7 @@ export const AuthLayout = () => {
       </div>
 
       {/* Right Column: Authentication Card Form */}
-      <div className="flex-1 flex flex-col justify-center items-center p-6 sm:p-12 lg:p-16 bg-[#F5F6FA]">
+      <div className="flex-1 flex flex-col justify-center items-center p-6 sm:p-12 lg:p-16 bg-gradient-to-br from-[#F8FAFD] via-[#F4F7FC] to-[#ECF1FA]">
         <div className="w-full max-w-md">
           {/* Mobile Logo */}
           <div className="lg:hidden flex items-center justify-center gap-3 mb-8">

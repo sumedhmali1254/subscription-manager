@@ -117,6 +117,35 @@
   width: 100%;
 }
 
+/* ── Global Faded Vertical & Horizontal Table Grid Lines ────── */
+table {
+  border-collapse: separate !important;
+  border-spacing: 0 !important;
+}
+
+table th {
+  border-bottom: 1px solid #E7EAF0 !important;
+  border-right: 1px solid #EAEFF5 !important;
+  white-space: nowrap !important;
+}
+
+table th:last-child {
+  border-right: none !important;
+}
+
+table td {
+  border-bottom: 1px solid #F1F4F9 !important;
+  border-right: 1px solid #F1F4F9 !important;
+}
+
+table td:last-child {
+  border-right: none !important;
+}
+
+table tbody tr:last-child td {
+  border-bottom: none !important;
+}
+
 /* ── Card Grid Alignment ────────────────────────────────────── */
 .card-grid {
   display: grid;
@@ -171,13 +200,22 @@ aside {
   background: #A5B0D0;
 }
 
-/* Sidebar scrollbar */
+/* Sidebar scrollbar — subtle, faded, soft */
+aside ::-webkit-scrollbar {
+  width: 4px;
+}
+
+aside ::-webkit-scrollbar-track {
+  background: transparent;
+}
+
 aside ::-webkit-scrollbar-thumb {
-  background: #38448A;
+  background: #CFD8E6;
+  border-radius: 99px;
 }
 
 aside ::-webkit-scrollbar-thumb:hover {
-  background: #5568BE;
+  background: #B0BFD4;
 }
 
 /* ── Print Styles ───────────────────────────────────────────── */

@@ -5,7 +5,7 @@ export const ADMIN_NAVIGATION = [
     group: 'WORKSPACE',
     items: [
       {
-        name: 'Overview',
+        name: 'Dashboard',
         path: '/dashboard',
         icon: 'LayoutDashboard',
         roles: [ROLES.ADMIN, ROLES.STAFF],
@@ -17,23 +17,24 @@ export const ADMIN_NAVIGATION = [
         roles: [ROLES.ADMIN, ROLES.STAFF],
       },
       {
-        name: 'Products & Variants',
+        name: 'Products',
         path: '/products',
         icon: 'Package',
         roles: [ROLES.ADMIN, ROLES.STAFF],
-      },
-      {
-        name: 'Subscription Plans',
-        path: '/plans',
-        icon: 'Layers',
-        roles: [ROLES.ADMIN, ROLES.STAFF],
+        children: [
+          { name: 'All Products', path: '/products', icon: 'Package' },
+          { name: 'Variants', path: '/product-variants', icon: 'Layers' },
+        ],
       },
       {
         name: 'Subscriptions',
         path: '/subscriptions',
         icon: 'Repeat',
         roles: [ROLES.ADMIN, ROLES.STAFF],
-        badgeKey: 'activeSubscriptions',
+        children: [
+          { name: 'All Subscriptions', path: '/subscriptions', icon: 'Repeat' },
+          { name: 'Plans', path: '/plans', icon: 'Layers' },
+        ],
       },
     ],
   },
@@ -45,13 +46,16 @@ export const ADMIN_NAVIGATION = [
         path: '/quotations',
         icon: 'FileText',
         roles: [ROLES.ADMIN, ROLES.STAFF],
+        children: [
+          { name: 'All Quotes', path: '/quotations', icon: 'FileText' },
+          { name: 'Templates', path: '/quotation-templates', icon: 'FileCode' },
+        ],
       },
       {
         name: 'Invoices',
         path: '/invoices',
         icon: 'Receipt',
         roles: [ROLES.ADMIN, ROLES.STAFF],
-        badgeKey: 'overdueInvoices',
       },
       {
         name: 'Payments',
@@ -83,7 +87,7 @@ export const ADMIN_NAVIGATION = [
     group: 'INSIGHTS',
     items: [
       {
-        name: 'Reports & Analytics',
+        name: 'Reports',
         path: '/reports',
         icon: 'BarChart3',
         roles: [ROLES.ADMIN, ROLES.STAFF],
@@ -100,7 +104,7 @@ export const ADMIN_NAVIGATION = [
     group: 'ADMINISTRATION',
     items: [
       {
-        name: 'Team Members',
+        name: 'Users',
         path: '/users',
         icon: 'UserCheck',
         roles: [ROLES.ADMIN],
@@ -152,4 +156,3 @@ export const CUSTOMER_NAVIGATION = [
     icon: 'User',
   },
 ];
-

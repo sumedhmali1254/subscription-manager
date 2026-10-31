@@ -17,6 +17,7 @@ import {
   XCircle,
   FileText,
 } from 'lucide-react';
+import { toast } from 'sonner';
 
 export const InvoiceDetailPage = () => {
   const { id } = useParams();
@@ -55,9 +56,9 @@ export const InvoiceDetailPage = () => {
   const handleSendEmail = async () => {
     try {
       await invoiceService.send(invoice.id);
-      alert(`Invoice emailed to ${invoice.customerEmail}`);
+      toast.success(`Invoice emailed to ${invoice.customerEmail}`);
     } catch (e) {
-      alert('Failed to send invoice');
+      toast.error('Failed to send invoice');
     }
   };
 
@@ -67,7 +68,7 @@ export const InvoiceDetailPage = () => {
       await invoiceService.cancel(invoice.id);
       fetchInvoice();
     } catch (e) {
-      alert('Failed to cancel');
+      toast.error('Failed to cancel');
     }
   };
 

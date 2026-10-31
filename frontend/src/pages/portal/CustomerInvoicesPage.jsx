@@ -9,6 +9,7 @@ import { StatusBadge } from '../../components/common/StatusBadge';
 import { RecordPaymentModal } from '../invoices/RecordPaymentModal';
 import { formatCurrency, formatDate } from '../../utils/formatters';
 import { Receipt, CreditCard, Printer } from 'lucide-react';
+import { toast } from 'sonner';
 
 export const CustomerInvoicesPage = () => {
   const { user } = useAuth();
@@ -40,7 +41,7 @@ export const CustomerInvoicesPage = () => {
       await invoiceService.recordPayment(payInvoice.id, paymentData);
       setPayInvoice(null);
       fetchInvoices();
-      alert('Payment settlement recorded successfully!');
+      toast.success('Payment settlement recorded successfully!');
     } finally {
       setPayLoading(false);
     }

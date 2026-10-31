@@ -9,6 +9,7 @@ import { Textarea } from '../../components/forms/Textarea';
 import { Button } from '../../components/common/Button';
 import { Avatar } from '../../components/common/Avatar';
 import { User, Building, Mail, Phone, MapPin, FileText, Save, CheckCircle2 } from 'lucide-react';
+import { toast } from 'sonner';
 
 export const CustomerProfilePage = () => {
   const { user } = useAuth();
@@ -34,7 +35,7 @@ export const CustomerProfilePage = () => {
       setSaveSuccess(true);
       setTimeout(() => setSaveSuccess(false), 3000);
     } catch (e) {
-      alert('Failed to update profile');
+      toast.error('Failed to update profile');
     }
   };
 

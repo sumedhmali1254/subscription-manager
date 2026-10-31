@@ -9,6 +9,7 @@ import { Button } from '../../components/common/Button';
 import { StatusBadge } from '../../components/common/StatusBadge';
 import { formatCurrency, formatDate } from '../../utils/formatters';
 import { Repeat, Calendar, CheckCircle2, Pause, Play, Layers } from 'lucide-react';
+import { toast } from 'sonner';
 
 export const CustomerSubscriptionsPage = () => {
   const { user } = useAuth();
@@ -37,9 +38,9 @@ export const CustomerSubscriptionsPage = () => {
     try {
       await subscriptionService.transitionStatus(sub.id, nextStatus);
       fetchSubs();
-      alert(`Subscription status updated to ${nextStatus}`);
+      toast.success(`Subscription status updated to ${nextStatus}`);
     } catch (e) {
-      alert('Action could not be completed.');
+      toast.error('Action could not be completed.');
     }
   };
 

@@ -32,7 +32,7 @@ export const CustomerLayout = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-[#F5F6FA] text-[#202744] flex flex-col font-sans">
+    <div className="min-h-screen bg-gradient-to-br from-[#F8FAFD] via-[#F4F7FC] to-[#ECF1FA] text-[#202744] flex flex-col font-sans">
       {/* Customer Header */}
       <header className="sticky top-0 z-30 bg-white border-b border-[#E7EAF0] shadow-xs">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

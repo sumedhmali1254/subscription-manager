@@ -7,6 +7,7 @@ import { Badge } from '../../components/common/Badge';
 import { BillingRunDetailModal } from './BillingRunDetailModal';
 import { formatDateTime } from '../../utils/formatters';
 import { PlayCircle, Eye, CheckCircle2, AlertTriangle, RotateCcw } from 'lucide-react';
+import { toast } from 'sonner';
 
 export const BillingRunsPage = () => {
   const [runs, setRuns] = useState([]);
@@ -53,12 +54,12 @@ export const BillingRunsPage = () => {
         setRunningBatch(false);
         setBatchProgress(0);
         fetchRuns();
-        alert(res.message);
+        toast.success(res.message);
       }, 500);
     } catch (e) {
       clearInterval(interval);
       setRunningBatch(false);
-      alert('Billing run failed');
+      toast.error('Billing run failed');
     }
   };
 
@@ -68,7 +69,7 @@ export const BillingRunsPage = () => {
       const res = await billingService.retryFailed(runId);
       setSelectedRun(res.data);
       fetchRuns();
-      alert(res.message);
+      toast.success(res.message);
     } finally {
       setRetryLoading(false);
     }
