@@ -12,7 +12,7 @@ export const reportService = {
       
       // Calculate MRR from active subscriptions
       const mrr = activeSubs.reduce((acc, s) => {
-        const amt = Number(s.amount || 0);
+        const amt = Number(s.unitPrice || s.subtotal || s.amount || 0);
         if (s.billingFrequency === 'YEARLY') return acc + (amt / 12);
         if (s.billingFrequency === 'WEEKLY') return acc + (amt * 4.33);
         if (s.billingFrequency === 'DAILY') return acc + (amt * 30);

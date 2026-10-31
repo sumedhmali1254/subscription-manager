@@ -6,9 +6,9 @@
 
 /* ── Mobile: < 640px ───────────────────────────────────────── */
 @media (max-width: 639px) {
-  /* Sidebar hidden by default on mobile — shown via drawer */
+  /* Sidebar clean minimal shadow on mobile */
   aside.fixed {
-    box-shadow: 2px 0 16px rgba(0, 0, 0, 0.18);
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.06);
   }
 
   /* Header compact */
@@ -117,7 +117,7 @@
   width: 100%;
 }
 
-/* ── Global Faded Vertical & Horizontal Table Grid Lines ────── */
+/* ── Clean Enterprise Tables (Zero Vertical Dividing Lines) ─── */
 table {
   border-collapse: separate !important;
   border-spacing: 0 !important;
@@ -125,21 +125,15 @@ table {
 
 table th {
   border-bottom: 1px solid #E7EAF0 !important;
-  border-right: 1px solid #EAEFF5 !important;
-  white-space: nowrap !important;
-}
-
-table th:last-child {
   border-right: none !important;
+  border-left: none !important;
+  white-space: nowrap !important;
 }
 
 table td {
   border-bottom: 1px solid #F1F4F9 !important;
-  border-right: 1px solid #F1F4F9 !important;
-}
-
-table td:last-child {
   border-right: none !important;
+  border-left: none !important;
 }
 
 table tbody tr:last-child td {
@@ -181,7 +175,21 @@ aside {
   will-change: transform, width;
 }
 
-/* ── Scrollbar Styling ──────────────────────────────────────── */
+/* Hide scrollbar completely inside sidebar to prevent dark vertical lines */
+aside,
+aside * {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+aside::-webkit-scrollbar,
+aside *::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+/* ── Scrollbar Styling for Main View ───────────────────────── */
 ::-webkit-scrollbar {
   width: 5px;
   height: 5px;
@@ -198,24 +206,6 @@ aside {
 
 ::-webkit-scrollbar-thumb:hover {
   background: #A5B0D0;
-}
-
-/* Sidebar scrollbar — subtle, faded, soft */
-aside ::-webkit-scrollbar {
-  width: 4px;
-}
-
-aside ::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-aside ::-webkit-scrollbar-thumb {
-  background: #CFD8E6;
-  border-radius: 99px;
-}
-
-aside ::-webkit-scrollbar-thumb:hover {
-  background: #B0BFD4;
 }
 
 /* ── Print Styles ───────────────────────────────────────────── */

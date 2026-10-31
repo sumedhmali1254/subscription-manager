@@ -205,7 +205,7 @@ export const Header = ({ onMenuToggle, collapsed }) => {
               onClick={() => setIsProfileOpen(!isProfileOpen)}
               className="flex items-center gap-2 p-1 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
             >
-              <Avatar src={user?.avatar} name={user?.name || 'User'} size="sm" />
+              <Avatar name={user?.name || 'User'} size="sm" />
               <div className="hidden lg:block text-left">
                 <span className="text-xs font-semibold text-[#202744] dark:text-slate-100 block leading-tight">
                   {user?.name || 'Admin'}

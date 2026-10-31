@@ -6,7 +6,7 @@ import { FormField } from '../../components/forms/FormField';
 import { Checkbox } from '../../components/forms/Checkbox';
 import { Button } from '../../components/common/Button';
 import { validateEmail } from '../../utils/validators';
-import { Eye, EyeOff, Lock, Mail, ArrowRight, ShieldCheck, UserCheck, Users } from 'lucide-react';
+import { Eye, EyeOff, Lock, Mail, ArrowRight } from 'lucide-react';
 
 export const LoginPage = () => {
   const { login, loading } = useAuth();
@@ -36,7 +36,7 @@ export const LoginPage = () => {
 
     try {
       const res = await login({ email, password, rememberMe });
-      if (res.user.role === 'CUSTOMER') {
+      if (res?.user?.role === 'CUSTOMER') {
         navigate('/portal');
       } else {
         navigate(from === '/portal' ? '/dashboard' : from);
@@ -46,71 +46,24 @@ export const LoginPage = () => {
     }
   };
 
-  const fillCredentials = (role) => {
-    if (role === 'ADMIN') {
-      setEmail('admin@brightloop.io');
-      setPassword('Password@123');
-    } else if (role === 'STAFF') {
-      setEmail('staff@brightloop.io');
-      setPassword('Password@123');
-    } else {
-      setEmail('customer@acme.com');
-      setPassword('Password@123');
-    }
-    setError('');
-  };
-
   return (
-    <div className="bg-white rounded-2xl border border-[#E7EAF0] p-7 sm:p-9 shadow-card">
-      <div className="mb-6">
+    <div className="bg-white rounded-2xl border border-[#E7EAF0] p-5 sm:p-6 shadow-card">
+      <div className="mb-4">
         <h2 className="text-xl sm:text-2xl font-bold text-[#202744] font-heading">
-          Sign In to Recurix
+          Sign In
         </h2>
-        <p className="text-xs sm:text-sm text-[#64748B] mt-1">
-          Access your Brightloop subscription operations workspace.
+        <p className="text-xs text-[#64748B] mt-0.5">
+          Enter your credentials to access your subscription workspace.
         </p>
       </div>
 
-      {/* Quick Demo Fill Buttons for Hackathon Jury */}
-      <div className="mb-6 p-3 bg-[#EEF0FD]/60 border border-indigo-100 rounded-xl">
-        <span className="text-[11px] font-semibold text-[#5263D9] uppercase tracking-wider block mb-2">
-          Demo Quick Fill Accounts:
-        </span>
-        <div className="grid grid-cols-3 gap-2">
-          <button
-            type="button"
-            onClick={() => fillCredentials('ADMIN')}
-            className="flex items-center justify-center gap-1 py-1.5 px-2 bg-white hover:bg-indigo-50 border border-indigo-200 rounded-lg text-xs font-semibold text-[#5263D9] shadow-2xs transition-colors"
-          >
-            <ShieldCheck className="w-3.5 h-3.5" />
-            Admin
-          </button>
-          <button
-            type="button"
-            onClick={() => fillCredentials('STAFF')}
-            className="flex items-center justify-center gap-1 py-1.5 px-2 bg-white hover:bg-slate-50 border border-slate-200 rounded-lg text-xs font-semibold text-slate-700 shadow-2xs transition-colors"
-          >
-            <UserCheck className="w-3.5 h-3.5 text-blue-500" />
-            Staff
-          </button>
-          <button
-            type="button"
-            onClick={() => fillCredentials('CUSTOMER')}
-            className="flex items-center justify-center gap-1 py-1.5 px-2 bg-white hover:bg-slate-50 border border-slate-200 rounded-lg text-xs font-semibold text-slate-700 shadow-2xs transition-colors"
-          >
-            <Users className="w-3.5 h-3.5 text-emerald-500" />
-            Customer
-          </button>
-        </div>
-      </div>
-
       {error && (
-        <div className="mb-4 p-3 rounded-lg bg-rose-50 border border-rose-200 text-xs text-rose-700 font-medium">
+        <div className="mb-3 p-2.5 rounded-lg bg-rose-50 border border-rose-200 text-xs text-rose-700 font-medium">
           {error}
         </div>
       )}
 
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={handleSubmit} className="space-y-3">
         <FormField label="Email Address" required>
           <Input
             type="email"
@@ -127,22 +80,23 @@ export const LoginPage = () => {
             type={showPassword ? 'text' : 'password'}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            placeholder="Enter your password"
+            placeholder="••••••••"
             icon={Lock}
             autoComplete="current-password"
             rightElement={
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="text-slate-400 hover:text-slate-600 focus:outline-none"
+                className="text-slate-400 hover:text-slate-600 focus:outline-none p-1 cursor-pointer"
+                title={showPassword ? 'Hide password' : 'Show password'}
               >
-                {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                {showPassword ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
               </button>
             }
           />
         </FormField>
 
-        <div className="flex items-center justify-between text-xs pt-1">
+        <div className="flex items-center justify-between text-xs pt-0.5">
           <Checkbox
             checked={rememberMe}
             onChange={(e) => setRememberMe(e.target.checked)}
@@ -150,7 +104,7 @@ export const LoginPage = () => {
           />
           <Link
             to="/forgot-password"
-            className="text-[#5263D9] hover:underline font-medium"
+            className="text-[#5263D9] hover:underline font-medium text-[11px]"
           >
             Forgot password?
           </Link>
@@ -159,7 +113,7 @@ export const LoginPage = () => {
         <Button
           type="submit"
           variant="primary"
-          className="w-full mt-2"
+          className="w-full mt-2 py-2 text-xs font-semibold"
           loading={loading}
           icon={ArrowRight}
           iconPosition="right"
@@ -168,7 +122,7 @@ export const LoginPage = () => {
         </Button>
       </form>
 
-      <div className="mt-6 text-center text-xs text-[#64748B] pt-4 border-t border-[#E7EAF0]">
+      <div className="mt-4 text-center text-xs text-[#64748B] pt-3 border-t border-[#E7EAF0]">
         Don't have an account yet?{' '}
         <Link to="/register" className="text-[#5263D9] font-semibold hover:underline">
           Create customer account
@@ -177,4 +131,3 @@ export const LoginPage = () => {
     </div>
   );
 };
-

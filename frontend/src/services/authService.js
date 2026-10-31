@@ -32,7 +32,8 @@ export const authService = {
         message: 'Login successful',
       };
     }
-    return apiClient.post('/auth/login', credentials);
+    const res = await apiClient.post('/auth/login', credentials);
+    return res.data || res;
   },
 
   register: async (userData) => {
@@ -52,13 +53,17 @@ export const authService = {
         message: 'Account created successfully',
       };
     }
-    return apiClient.post('/auth/register', userData);
+    const res = await apiClient.post('/auth/register', userData);
+    return res.data || res;
   },
 
   forgotPassword: async (email) => {
     if (USE_MOCK) {
       await new Promise(r => setTimeout(r, 400));
-      return { success: true, message: `Password reset instructions sent to ${email}` };
+      return {
+        success: true,
+        message: `Password reset link has been dispatched to ${email}`,
+      };
     }
     return apiClient.post('/auth/forgot-password', { email });
   },
@@ -66,14 +71,20 @@ export const authService = {
   resetPassword: async (token, newPassword) => {
     if (USE_MOCK) {
       await new Promise(r => setTimeout(r, 400));
-      return { success: true, message: 'Password has been reset successfully. Please login.' };
+      return {
+        success: true,
+        message: 'Password has been successfully updated. You may now log in.',
+      };
     }
     return apiClient.post('/auth/reset-password', { token, newPassword });
   },
 
   getCurrentUser: async () => {
-    const raw = localStorage.getItem('recurix_user');
-    return raw ? JSON.parse(raw) : null;
+    if (USE_MOCK) {
+      const userStr = localStorage.getItem('recurix_user');
+      return userStr ? JSON.parse(userStr) : null;
+    }
+    const res = await apiClient.get('/auth/me');
+    return res.data?.user || res.data || res;
   },
 };
-
